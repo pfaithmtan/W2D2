@@ -33,7 +33,7 @@ class Manager < Employee
     byebug
     self.employees.reduce(0) do |total, employee|
       total += employee.salary
-      total += employee.total_salary unless employee.is_a?(Employee)
+      total += employee.total_salary if self.is_a?(Manager)
     end 
   end 
   
