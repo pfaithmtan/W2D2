@@ -1,6 +1,10 @@
 # PHASE 2
 def convert_to_int(str)
-  Integer(str)
+  begin
+    Integer(str)
+  rescue ArgumentError
+    return nil 
+  end   
 end
 
 # PHASE 3
@@ -18,13 +22,21 @@ def feed_me_a_fruit
   puts "Hello, I am a friendly monster. :)"
 
   puts "Feed me a fruit! (Enter the name of a fruit:)"
-  maybe_fruit = gets.chomp
-  reaction(maybe_fruit) 
+  begin 
+    maybe_fruit = gets.chomp
+    reaction(maybe_fruit) 
+  rescue StandardError
+    puts "That's not a fruit I like! Try again!"
+    retry 
+  end 
 end  
 
 # PHASE 4
 class BestFriend
   def initialize(name, yrs_known, fav_pastime)
+    raise ArgumentError, "We haven't known each other for long enough!" if yrs_known < 5
+    raise ArgumentError, "Your best friend has no name!" if name.length == 0
+    raise ArgumentError, "You don't know your best friend's favourite past time?!" if fav_pastime.length == 0 
     @name = name
     @yrs_known = yrs_known
     @fav_pastime = fav_pastime
