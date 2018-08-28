@@ -1,11 +1,13 @@
 require 'singleton'
+require 'byebug'
 
 class Piece 
+  attr_accessor :pos, :board
   
-  def initialize
-    @color 
-    @board 
-    @pos 
+  def initialize(color, pos)
+    @color = color
+    @board = nil
+    @pos = pos
   end
   
   def [](pos)
@@ -18,20 +20,24 @@ class Piece
     @board.grid[x][y] = value
   end 
   
-  def to_s 
+  
+  def to_s
+    raise "Not Implemented"
   end 
   
   def empty? 
   end 
   
   def valid_moves 
+    raise "Not Implemented"
   end 
   
   def pos=(val)
+    @pos = val
   end 
   
   def symbol 
-    :p
+    raise "Not Implemented"
   end 
   
   private 
@@ -40,11 +46,56 @@ class Piece
 end 
 
 module SlidingPiece 
-  def horizontal_dirs 
+  def horizontal_dirs
+    squares = []
+    
+    (0..7).each do |col|
+      squares << [self.pos[0], col] unless col == self.pos[1]
+    end 
+    
+    squares
+  end 
+  
+  def vertical_dirs
+    squares = []
+    
+    (0..7).each do |row|
+      squares << [row, self.pos[1]] unless row == self.pos[0]
+    end 
+    
+    squares
   end 
   
   def diagonal_dirs
+    squares = []
+    
+    squares += diagonal_dir([1, 1])
+    squares += diagonal_dir([1, -1])
+    squares += diagonal_dir([-1, 1])
+    squares += diagonal_dir([-1, -1])
+    
+    squares
   end
+  
+  def diagonal_dir(move)
+    squares = []
+    
+    i = 1
+    changed = true
+    while changed
+      changed = false
+      new_row = self.pos[0] + i * move[0]
+      new_col = self.pos[1] + i * move[1]
+      new_pos = [new_row, new_col]
+      if self.board.valid_pos?(new_pos)
+        squares << new_pos 
+        changed = true
+      end 
+      i += 1 
+    end 
+    
+    squares
+  end 
   
   def moves 
   end 
@@ -71,6 +122,10 @@ end
 
 class NullPiece < Piece 
   include Singleton
+  
+  def initialize 
+    super(nil, nil)
+  end 
   
   def symbol 
     :n

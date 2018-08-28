@@ -14,7 +14,7 @@ class Display
     @board.grid.each_with_index do |row, row_i|
       row.each_with_index do |square, col_i|
         if [row_i, col_i] == @cursor.cursor_pos
-          print "c".colorize(:red)
+          print square.symbol.to_s.colorize(:red)
         else
           print square.symbol.to_s.colorize(:green)
         end
