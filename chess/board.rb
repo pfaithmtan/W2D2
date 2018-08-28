@@ -35,8 +35,14 @@ class Board
   
   def valid_end_pos?(pos)
     row, col = pos 
-    return false unless (row.between(0, size - 1) && col.between(0, size - 1))
-    return false unless self[pos].nil?
+    return false unless (valid_pos?(pos) && self[pos].nil?)
     true
   end
+  
+  def valid_pos?(pos)
+    row, col = pos 
+    size = @grid.count
+    return false unless (row.between?(0, size - 1) && col.between?(0, size - 1))
+    true
+  end 
 end 
