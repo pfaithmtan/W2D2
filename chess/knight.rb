@@ -1,11 +1,14 @@
 require_relative 'piece.rb'
-require_relative 'board.rb'
 
 class Knight < Piece
   include SteppingPiece
   
   def symbol
-    :N
+    if @color == :white
+      ♘
+    else
+      ♞
+    end
   end 
   
   protected

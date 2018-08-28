@@ -1,11 +1,14 @@
 require_relative 'piece.rb'
-require_relative 'board.rb'
 
 class Rook < Piece
   include SlidingPiece
   
   def symbol
-    :R
+    if @color == :white
+      ♖
+    else
+      ♜
+    end
   end 
   
   protected

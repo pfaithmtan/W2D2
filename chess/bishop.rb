@@ -1,11 +1,14 @@
 require_relative 'piece.rb'
-require_relative 'board.rb'
 
 class Bishop < Piece
   include SlidingPiece
   
   def symbol
-    :B
+    if @color == :white
+      ♗
+    else
+      ♝
+    end
   end 
   
   protected
