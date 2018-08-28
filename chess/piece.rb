@@ -63,15 +63,32 @@ module SlidingPiece
   def diagonal_dirs
     squares = []
     
-    squares += diagonal_dir([1, 1])
-    squares += diagonal_dir([1, -1])
-    squares += diagonal_dir([-1, 1])
-    squares += diagonal_dir([-1, -1])
+    DIAGONAL_DIRS.each do |dir|
+      squares += grow_unblocked_moves_in_dir(dir)
+    end
     
     squares
   end
   
-  def diagonal_dir(move)
+  def moves 
+    moves = []
+    
+    self.move_dirs.each do |dir|
+      moves += grow_unblocked_moves_in_dir(dir)
+    end 
+    
+    moves
+  end 
+  
+  private
+  HORIZONTAL_DIRS = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+  DIAGONAL_DIRS = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
+  
+  def move_dirs 
+    raise "Not Implemented"
+  end 
+  
+  def grow_unblocked_moves_in_dir([dx, dy])
     squares = []
     
     i = 1
@@ -89,19 +106,6 @@ module SlidingPiece
     end 
     
     squares
-  end 
-  
-  def moves 
-  end 
-  
-  private
-  HORIZONTAL_DIRS = [[0, -1], [0, 1], [-1, 0], [1, 0]]
-  DIAGONAL_DIRS = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
-  
-  def move_dirs 
-  end 
-  
-  def grow_unblocked_moves_in_dir(dx, dy)
   end 
 end 
 
