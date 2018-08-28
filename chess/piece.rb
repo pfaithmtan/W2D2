@@ -53,12 +53,6 @@ module SlidingPiece
       squares << [self.pos[0], col] unless col == self.pos[1]
     end 
     
-    squares
-  end 
-  
-  def vertical_dirs
-    squares = []
-    
     (0..7).each do |row|
       squares << [row, self.pos[1]] unless row == self.pos[0]
     end 
@@ -101,8 +95,8 @@ module SlidingPiece
   end 
   
   private
-  HORIZONTAL_DIRS = []
-  DIAGONAL_DIRS = []
+  HORIZONTAL_DIRS = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+  DIAGONAL_DIRS = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
   
   def move_dirs 
   end 
