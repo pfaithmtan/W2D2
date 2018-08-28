@@ -1,8 +1,10 @@
 require_relative 'piece.rb'
 
 class Board 
+  attr_accessor :grid
+  
   def initialize(size = 8) 
-    @grid = Array.new(size) { Array.new(size) { nil } }
+    @grid = Array.new(size) { Array.new(size) { NullPiece.instance } }
     populate_board
   end 
   
