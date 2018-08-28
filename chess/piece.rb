@@ -111,10 +111,19 @@ end
 
 module SteppingPiece 
   def moves 
+    moves = [] 
+    self_row, self_col = self.pos
+    
+    self.move_diffs.each do |move|
+      moves << [self_row + move[0], self_col + move[1]]
+    end 
+    
+    moves    
   end 
   
   private 
   def move_diffs
+    raise "Not Implemented"
   end 
 end 
 
