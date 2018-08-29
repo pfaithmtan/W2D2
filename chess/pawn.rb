@@ -1,4 +1,6 @@
 require_relative 'piece.rb'
+require_relative 'board.rb'
+require 'byebug'
 
 class Pawn < Piece
   
@@ -11,7 +13,7 @@ class Pawn < Piece
   end 
   
   def move_dirs
-    forward_steps + side_attacks.select { |piece| piece.color != self.color }
+    forward_steps + side_attacks.select { |pos| @board[pos].color == (self.color == :white ? :black : :white) }
   end 
   
   private 
@@ -45,3 +47,9 @@ class Pawn < Piece
   end
   
 end 
+# 
+# if __FILE__ == $PROGRAM_NAME 
+#   board = Board.new
+#   piece = Pawn.new(:white, [4, 4], board)
+#   p piece.move_dirs
+# end 

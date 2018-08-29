@@ -1,12 +1,26 @@
 require 'singleton'
 require 'byebug'
 
+# class Board 
+#   attr_accessor :grid
+#   def initialize 
+#     @grid = Array.new(8) { Array.new(8) }
+#   end 
+# 
+#   def valid_pos?(pos)
+#     row, col = pos 
+#     size = @grid.count
+#     return false unless (row.between?(0, size - 1) && col.between?(0, size - 1))
+#     true
+#   end 
+# end
+
 class Piece 
-  attr_accessor :pos, :board
+  attr_accessor :pos, :board, :color
   
-  def initialize(color, pos)
+  def initialize(color, pos, board)
     @color = color
-    @board = nil
+    @board = board
     @pos = pos
   end
   
@@ -88,15 +102,15 @@ module SlidingPiece
     raise "Not Implemented"
   end 
   
-  def grow_unblocked_moves_in_dir([dx, dy])
+  def grow_unblocked_moves_in_dir(dir)
     squares = []
     
     i = 1
     changed = true
     while changed
       changed = false
-      new_row = self.pos[0] + i * move[0]
-      new_col = self.pos[1] + i * move[1]
+      new_row = self.pos[0] + i * dir[0]
+      new_col = self.pos[1] + i * dir[1]
       new_pos = [new_row, new_col]
       if self.board.valid_pos?(new_pos)
         squares << new_pos 

@@ -21,7 +21,7 @@ class Board
   def populate_board 
     [0, 1, 6, 7].each do |row_i|
       @grid[row_i].map!.with_index do |square, col_i|
-        Piece.new(:piece, [row_i, col_i] )
+        Piece.new(:piece, [row_i, col_i], self )
       end 
     end 
   end 
